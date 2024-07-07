@@ -1,14 +1,17 @@
 return {
-  -- add gruvbox
-  { "craftzdog/solarized-osaka.nvim" },
-
-  -- poimandres
-  { "olivercederborg/poimandres.nvim" },
-  -- Configure LazyVim to load gruvbox
+  "rose-pine/neovim",
+  name = "rose-pine",
+  opts = function()
+    return {
+      styles = {
+        transparency = true,
+      }
+    }
+  end,
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "solarized-osaka",
-    },
-  },
+      colorscheme = "rose-pine"
+    }
+  }
 }
