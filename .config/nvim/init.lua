@@ -1,5 +1,10 @@
--- Set leader key
+-- Global vim bindings
 vim.g.mapleader = " "
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -12,7 +17,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    -- Treesitter for syntax highlighting
+        -- Treesitter for syntax highlighting
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -76,11 +81,3 @@ require("lazy").setup({
         end
     }
 })
-
--- Basic Neovim settings
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-
