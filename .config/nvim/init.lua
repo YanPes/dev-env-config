@@ -1,4 +1,4 @@
--- Global vim bindings
+--Global vim bindings
 vim.g.mapleader = " "
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -23,10 +23,19 @@ require("lazy").setup({
         build = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup({
-                ensure_installed = { "typescript", "javascript", "css", "lua" },
+                ensure_installed = { "typescript", "javascript", "tsx", "css", "lua" },
                 highlight = { enable = true },
+                indent = { enable = true },
             })
         end
+    },
+
+    -- Auto-close jsx or tsx tags
+    {
+        "windwp/nvim-ts-autotag",
+        config = function()
+            require("nvim-ts-autotag").setup()
+        end,
     },
 
     -- LSP Config
@@ -34,9 +43,11 @@ require("lazy").setup({
         "neovim/nvim-lspconfig",
         config = function()
             local lspconfig = require("lspconfig")
-            lspconfig.ts_ls.setup({})
+            lspconfig.tsserver.setup({})
             lspconfig.cssls.setup({})
             lspconfig.html.setup({})
+            vim.api.nvim_set_keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
+            vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()', { noremap = true, silent = true })
         end
     },
 
@@ -55,7 +66,7 @@ require("lazy").setup({
         "nvim-lualine/lualine.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
-            require("lualine").setup({ options = { theme = "solarized" } })
+            require("lualine").setup()
         end
     },
 
@@ -72,12 +83,9 @@ require("lazy").setup({
             vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap = true, silent = true })
         end
     },
-
-    -- Osaka Solarized Theme
-    {
-        "craftzdog/solarized-osaka.nvim",
-        config = function()
-            vim.cmd([[colorscheme solarized-osaka]])
-        end
-    }
 })
+
+vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>sh", ":split<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>tv", ":vsplit | terminal<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>th", ":split | terminal<CR>", { noremap = true, silent = true })
