@@ -38,6 +38,25 @@ require("lazy").setup({
         end,
     },
 
+    -- Mason configs
+    {
+        "williamboman/mason.nvim",
+        config = function()
+            local mason = require("mason")
+            mason.setup({})
+        end
+    },
+
+    {
+        "williamboman/mason-lspconfig.nvim",
+        config = function()
+            local mason_lspconfig = require("mason-lspconfig")
+            mason_lspconfig.setup({
+                ensure_installed = {"ts_ls", "biome"}
+            });
+        end
+    },
+
     -- LSP Config
     {
         "neovim/nvim-lspconfig",
@@ -46,11 +65,9 @@ require("lazy").setup({
             lspconfig.ts_ls.setup({})
             lspconfig.cssls.setup({})
             lspconfig.html.setup({})
-            -- Go to Definition
             vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
-            -- Open Buffer Code Actions
+            vim.api.nvim_set_keymap('n', '<leader>td', '<cmd>lua vim.lsp.buf.type_definition()<CR>', { noremap = true, silent = true })
             vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
-            -- Go back to previous Buffer (nice combination with "gd")
             vim.api.nvim_set_keymap('n', 'gb', ':bprev<CR>', { noremap = true, silent = true })
         end
     },
@@ -100,6 +117,19 @@ require("lazy").setup({
 	vim.api.nvim_set_keymap('n', '<leader>4', '<Cmd>lua require("harpoon.ui").nav_file(4)<CR>', { noremap = true, silent = true })
 	vim.api.nvim_set_keymap('n', '<leader>5', '<Cmd>lua require("harpoon.ui").nav_file(5)<CR>', { noremap = true, silent = true })
 	end
+    },
+
+    -- Theme
+    
+    {
+        "rose-pine/neovim",
+        config = function()
+            local rose_pine = require("rose-pine")
+            rose_pine.setup({
+                styles = {bold = true, italic = true, transparency = false}
+            })
+		    vim.cmd("colorscheme rose-pine")
+	    end
     }
 })
 
@@ -112,8 +142,3 @@ vim.keymap.set("n", "<leader>sh", ":split<CR>", { noremap = true, silent = true 
 
 vim.keymap.set("n", "<leader>tv", ":vsplit | terminal<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>th", ":split | terminal<CR>", { noremap = true, silent = true })
-
--- Color scheme
-
-vim.cmd("colorscheme habamax")
-
