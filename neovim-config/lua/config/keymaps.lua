@@ -22,3 +22,6 @@ keymap.set("n", "sl", "<C-w>l", opts)
 
 -- Go back to previous buffer
 keymap.set("n", "gb", ":bprev", opts)
+
+-- Exit "insert" mode with "jj"
+keymap.set("i", "jj", "<ESC>", opts)
