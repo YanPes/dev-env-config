@@ -30,6 +30,7 @@ return {
           ---@type snacks.dashboard.Item[]
           keys = {
             { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+            { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
             { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
           },
       },
